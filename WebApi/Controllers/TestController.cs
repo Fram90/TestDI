@@ -12,22 +12,24 @@ namespace WebApi.Controllers
 {
     public class TestController : ApiController
     {
-        private Container container;
-
+        private readonly UnitOfWork _uow;
         public TestController()
         {
-            container = new Container();
-
-            container.Register<IContext, Db>();
-
-            container.Verify();
+            _uow = Bootstrapper.container.GetInstance<UnitOfWork>();
         }
 
         // GET api/<controller>
         public void Get()
         {
-            var repo = container.GetInstance<IContext>();
-            
+            using (_uow)
+            {
+                _uow.TestRepo.AddModel("Model1");
+                _uow.TestRepo.AddModel("Model2");
+                _uow.Save();
+            }
+            _uow.TestRepo.AddModel("Model3");
+
+
 
         }
 

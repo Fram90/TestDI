@@ -11,9 +11,16 @@ namespace Database
     public class Db : DbContext, IContext
     {
         public DbSet<Model> Models { get; set; }
+
+        public Db():base("TestDb")
+        {
+            
+        }
     }
 
-    public interface IContext
+
+
+    public interface IContext : IDisposable
     {
         DbSet<Model> Models { get; set; }
         int SaveChanges();

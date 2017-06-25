@@ -1,3 +1,5 @@
+using Database.Models;
+
 namespace Database.Migrations
 {
     using System;
@@ -26,6 +28,12 @@ namespace Database.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Models.AddOrUpdate(x => x.Name,
+                new Model() { Id = Guid.NewGuid(), Name = "Test1" },
+                new Model() { Id = Guid.NewGuid(), Name = "Test2" },
+                new Model() { Id = Guid.NewGuid(), Name = "Test3" },
+                new Model() { Id = Guid.NewGuid(), Name = "Test4" });
         }
     }
 }
